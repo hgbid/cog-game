@@ -61,11 +61,16 @@ class Stage:
 
         else:  # tasks
             if hand_results.multi_hand_landmarks:
+                # print('hand_results', hand_results)
                 for hand_landmarks in hand_results.multi_hand_landmarks:
+                    # print('hand_landmarks',hand_landmarks)
+
                     for id, landmark in enumerate(hand_landmarks.landmark):
+                        # print('id, landmark', id, landmark)
                         y, x = int(landmark.x * FRAME_WIDTH), int(landmark.y * FRAME_HEIGHT)
-                        if (self.image.location[0] <= x <= self.image.location[0] + self.image.size and
-                                self.image.location[1] <= y <= self.image.location[1] + self.image.size):
+                        MARGIN = 10
+                        if ((self.image.location[0]- MARGIN)<= x <= (self.image.location[0] + self.image.size+MARGIN) and
+                                (self.image.location[1] -MARGIN)<= y <= (self.image.location[1] + self.image.size+MARGIN)):
                             return True
 
         return False
